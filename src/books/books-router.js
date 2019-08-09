@@ -1,6 +1,7 @@
 const express = require('express');
 const BooksService = require('./books-service');
 const requireAuth = require('../middleware/jwt-auth');
+const path = require('path');
 const booksRouter = express.Router();
 const jsonParser = express.json();
 
@@ -14,9 +15,13 @@ booksRouter
       .catch(next);
   });
   
+// Router
+// .get('/users/:id','gives you a specific user')
+// .get('/users/:id/books', 'gets that users books')
+// .get('/users/:id/books/:bookId', 'gives a specific book')
 
 booksRouter
-  .route('/user/list/')
+  .route('/user/books/')
   .all(requireAuth)
   .get( (req, res, next) => {
     BooksService.getUserBooks(
@@ -54,17 +59,18 @@ booksRouter
   });
 
 booksRouter
-  .route('/user/book/:book_id')
+  .route('/user/books/:book_id')
   .all(requireAuth)
   .all(checkBookExists)
+  .all(userAuth)
   .get((req, res) => {
     res.json(BooksService.serializeBook(res.book));
   })
   .delete((req, res, next) => {
-    const { id } = req.params;
+    const { book_id } = req.params;
     BooksService.deleteBook(
       req.app.get('db'),
-      id
+      book_id
     )
       .then(() => res.status(204).end())
       .catch(next);
@@ -80,10 +86,9 @@ booksRouter
         }
       });
     }
-
     BooksService.updateBook(
       req.app.get('db'),
-      req.params.id,
+      req.params.book_id,
       updatedBook
     )
       .then(updated => {
@@ -124,6 +129,17 @@ async function checkBookExists(req, res, next) {
     } catch(error) {
         next(error)
     }
+}
+
+function userAuth(req, res, next) {
+    try {
+      if(res.book['user:id'] !== req.user.id)
+    return res.status(404).json({ error: 'Unauthorized request' })
+    next()
+    }
+    catch(error) {
+      next(error)
+  }
 }
 
 module.exports = booksRouter;

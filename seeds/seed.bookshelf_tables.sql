@@ -21,30 +21,30 @@ VALUES
   -- ('lexlor', 'Alex Taylor', 'Lex', 'lex-password'),
   -- ('wippy', 'Ping Won In', 'Ping', 'ping-password');
 
-INSERT INTO bookshelf_books   (title, author, list, book_source, image, rating, likes, dislikes, recommended, poster_rating, poster_report, poster_id, user_id)
+INSERT INTO bookshelf_books   (title, author, list, book_source, image, rating, likes, dislikes, recommended, poster_rating, poster_report, poster_id, user_id, genre)
 
 VALUES
   ('Disappearing Earth', 'Julia Phillips', 'wishlist', 'Print', 
-    'https://media.vanityfair.com/photos/5d1662c85f741a0008ed05e1/master/w_800%2Cc_limit/best-books-of-2019-Disappearing-Earth.jpg', 13, 2, 33, false, null, null, null, 4),
+    'https://media.vanityfair.com/photos/5d1662c85f741a0008ed05e1/master/w_800%2Cc_limit/best-books-of-2019-Disappearing-Earth.jpg', 13, 2, 33, false, null, null, null, 4, 'Fairytale'),
   ('All That You Leave Behind', 'Erin Lee Carr', 'read', 'Kindle', 
-    'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d9/master/w_800%2Cc_limit/best-books-2019-All-That-You-Leave-Behind.jpg', 79, 1, 88, true, 94, 'Best book Ever!!', 2, 1),
+    'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d9/master/w_800%2Cc_limit/best-books-2019-All-That-You-Leave-Behind.jpg', 79, 1, 88, true, 94, 'Best book Ever!!', 2, 1, 'Fairytale'),
   ('Go Ahead in the Rain: Notes to A Tribe Called Quest', 
-    'Hanif Abdurraqib', 'reading', 'Print', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d8/master/w_800%2Cc_limit/best-books-2019-Go-Ahead-in-the-Rain.jpg', 97, 0, 1, true, 94, 'Best time you will have with a book', 2, 3),
-  ('The Dragonfly Sea', 'Yvonne Adhiambo Owuor', 'wishlist', 'Kindle', '', 45, 28, 3, false, null, null, null, 5),
-  ('The National Team: The Inside Story of the Women Who Changed Soccer', 'Caitlin Murray', 'reading', 'Website', 'https://media.vanityfair.com/photos/5d1662c65f741a0008ed05dd/master/w_800%2Cc_limit/best-books-2019-The-National-Team.jpg', 65, 5, 0, true, 94, 'Best in my lifetime!!', 4, 3),
-  ('The New Me', 'Halle Butler', 'wishlist', 'Audiobook', '', 82, 33, 36, false, null, null, null , 6),
-  ('Disappearing Earth', 'Julia Phillips', 'wishlist', 'Print', 'https://media.vanityfair.com/photos/5d1662c85f741a0008ed05e1/master/w_800%2Cc_limit/best-books-of-2019-Disappearing-Earth.jpg', 13, 2, 33, false, null, null, null, 3),
-  ('All That You Leave Behind', 'Erin Lee Carr', 'read', 'Kindle', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d9/master/w_800%2Cc_limit/best-books-2019-All-That-You-Leave-Behind.jpg', 79, 1, 88, true, 94, 'Best book Ever!!', 6, 5),
-  ('Go Ahead in the Rain: Notes to A Tribe Called Quest', 'Hanif Abdurraqib', 'reading', 'Print', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d8/master/w_800%2Cc_limit/best-books-2019-Go-Ahead-in-the-Rain.jpg', 97, 0, 1, true, 94, 'Best time you will have with a book', 3, 5),
-  ('The Dragonfly Sea', 'Yvonne Adhiambo Owuor', 'wishlist', 'Kindle', '', 45, 28, 3, false, null, null, null, 1),
-  ('The National Team: The Inside Story of the Women Who Changed Soccer', 'Caitlin Murray', 'reading', 'Website', 'https://media.vanityfair.com/photos/5d1662c65f741a0008ed05dd/master/w_800%2Cc_limit/best-books-2019-The-National-Team.jpg', 65, 5, 0, true, 94, 'Best in my lifetime!!', 1, 2),
-  ('The New Me', 'Halle Butler', 'wishlist', 'Audiobook', '', 82, 33, 36, false, null, null, null, 2),
-  ('Disappearing Earth', 'Julia Phillips', 'wishlist', 'Print', 'https://media.vanityfair.com/photos/5d1662c85f741a0008ed05e1/master/w_800%2Cc_limit/best-books-of-2019-Disappearing-Earth.jpg', 13, 2, 33, false, null, null, null, 5),
-  ('All That You Leave Behind', 'Erin Lee Carr', 'read', 'Kindle', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d9/master/w_800%2Cc_limit/best-books-2019-All-That-You-Leave-Behind.jpg', 79, 1, 88, true, 94, 'Best book Ever!!', 4, 3),
-  ('Go Ahead in the Rain: Notes to A Tribe Called Quest', 'Hanif Abdurraqib', 'reading', 'Print', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d8/master/w_800%2Cc_limit/best-books-2019-Go-Ahead-in-the-Rain.jpg', 97, 0, 1, true, 94, 'Best time you will have with a book', 3, 4),
-  ('The Dragonfly Sea', 'Yvonne Adhiambo Owuor', 'wishlist', 'Kindle', '', 45, 28, 3, false, null, null, null, 3),
-  ('The National Team: The Inside Story of the Women Who Changed Soccer', 'Caitlin Murray', 'reading', 'Website', 'https://media.vanityfair.com/photos/5d1662c65f741a0008ed05dd/master/w_800%2Cc_limit/best-books-2019-The-National-Team.jpg', 65, 5, 0, true, 94, 'Best in my lifetime!!', 5, 6),
-  ('The New Me', 'Halle Butler', 'wishlist', 'Audiobook', '', 82, 33, 36, false, null, null, null, 4);
+    'Hanif Abdurraqib', 'reading', 'Print', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d8/master/w_800%2Cc_limit/best-books-2019-Go-Ahead-in-the-Rain.jpg', 97, 0, 1, true, 94, 'Best time you will have with a book', 2, 3, 'Fairytale'),
+  ('The Dragonfly Sea', 'Yvonne Adhiambo Owuor', 'wishlist', 'Kindle', '', 45, 28, 3, false, null, null, null, 5, 'Fairytale'),
+  ('The National Team: The Inside Story of the Women Who Changed Soccer', 'Caitlin Murray', 'reading', 'Website', 'https://media.vanityfair.com/photos/5d1662c65f741a0008ed05dd/master/w_800%2Cc_limit/best-books-2019-The-National-Team.jpg', 65, 5, 0, true, 94, 'Best in my lifetime!!', 4, 3, 'Fairytale'),
+  ('The New Me', 'Halle Butler', 'wishlist', 'Audiobook', '', 82, 33, 36, false, null, null, null , 6, 'Fairytale'),
+  ('Disappearing Earth', 'Julia Phillips', 'wishlist', 'Print', 'https://media.vanityfair.com/photos/5d1662c85f741a0008ed05e1/master/w_800%2Cc_limit/best-books-of-2019-Disappearing-Earth.jpg', 13, 2, 33, false, null, null, null, 3, 'Fairytale'),
+  ('All That You Leave Behind', 'Erin Lee Carr', 'read', 'Kindle', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d9/master/w_800%2Cc_limit/best-books-2019-All-That-You-Leave-Behind.jpg', 79, 1, 88, true, 94, 'Best book Ever!!', 6, 5, 'Fairytale'),
+  ('Go Ahead in the Rain: Notes to A Tribe Called Quest', 'Hanif Abdurraqib', 'reading', 'Print', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d8/master/w_800%2Cc_limit/best-books-2019-Go-Ahead-in-the-Rain.jpg', 97, 0, 1, true, 94, 'Best time you will have with a book', 3, 5, 'Fairytale'),
+  ('The Dragonfly Sea', 'Yvonne Adhiambo Owuor', 'wishlist', 'Kindle', '', 45, 28, 3, false, null, null, null, 1, 'Fairytale'),
+  ('The National Team: The Inside Story of the Women Who Changed Soccer', 'Caitlin Murray', 'reading', 'Website', 'https://media.vanityfair.com/photos/5d1662c65f741a0008ed05dd/master/w_800%2Cc_limit/best-books-2019-The-National-Team.jpg', 65, 5, 0, true, 94, 'Best in my lifetime!!', 1, 2, 'Fairytale'),
+  ('The New Me', 'Halle Butler', 'wishlist', 'Audiobook', '', 82, 33, 36, false, null, null, null, 2, 'Fairytale'),
+  ('Disappearing Earth', 'Julia Phillips', 'wishlist', 'Print', 'https://media.vanityfair.com/photos/5d1662c85f741a0008ed05e1/master/w_800%2Cc_limit/best-books-of-2019-Disappearing-Earth.jpg', 13, 2, 33, false, null, null, null, 5, 'Fairytale'),
+  ('All That You Leave Behind', 'Erin Lee Carr', 'read', 'Kindle', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d9/master/w_800%2Cc_limit/best-books-2019-All-That-You-Leave-Behind.jpg', 79, 1, 88, true, 94, 'Best book Ever!!', 4, 3, 'Fairytale'),
+  ('Go Ahead in the Rain: Notes to A Tribe Called Quest', 'Hanif Abdurraqib', 'reading', 'Print', 'https://media.vanityfair.com/photos/5d1662c45f741a0008ed05d8/master/w_800%2Cc_limit/best-books-2019-Go-Ahead-in-the-Rain.jpg', 97, 0, 1, true, 94, 'Best time you will have with a book', 3, 4, 'Fairytale'),
+  ('The Dragonfly Sea', 'Yvonne Adhiambo Owuor', 'wishlist', 'Kindle', '', 45, 28, 3, false, null, null, null, 3, 'Fairytale'),
+  ('The National Team: The Inside Story of the Women Who Changed Soccer', 'Caitlin Murray', 'reading', 'Website', 'https://media.vanityfair.com/photos/5d1662c65f741a0008ed05dd/master/w_800%2Cc_limit/best-books-2019-The-National-Team.jpg', 65, 5, 0, true, 94, 'Best in my lifetime!!', 5, 6, 'Fairytale'),
+  ('The New Me', 'Halle Butler', 'wishlist', 'Audiobook', '', 82, 33, 36, false, null, null, null, 4, 'Fairytale');
 
 INSERT INTO bookshelf_comments (
   text,
