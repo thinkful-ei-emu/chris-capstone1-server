@@ -14,22 +14,21 @@ const BooksService = {
         'book.image',
         'book.book_report',
         'book.rating',
-        'book.likes',
-        'book.dislikes',
+        'book.genre',
         'book.recommended',
         ...userFields,
         ...posterFields,
         db.raw(
-          'count(DISTINCT comm) AS number_of_comments'
+          'count(DISTINCT rat) AS number_of_ratings'
         ),
         db.raw(
-          'AVG(comm.rating) AS average_review_rating'
+          'AVG(rat.rating) AS average_rating'
         )
       )
       .leftJoin(
-        'bookshelf_comments AS comm',
+        'bookshelf_bookrating AS rat',
         'book.id',
-        'comm.book_id'
+        'rat.book_id'
       )
       .leftJoin(
         'bookshelf_users AS usr',
@@ -56,23 +55,22 @@ const BooksService = {
         'book.image',
         'book.book_report',
         'book.rating',
-        'book.likes',
-        'book.dislikes',
+        'book.genre',
         'book.recommended',
         ...userFields,
         ...posterFields,
         db.raw(
-          'count(DISTINCT comm) AS number_of_comments'
+          'count(DISTINCT rat) AS number_of_ratings'
         ),
         db.raw(
-          'AVG(comm.rating) AS average_review_rating'
+          'AVG(rat.rating) AS average_rating'
         )
       )
       .where('usr.id', user_id)
       .leftJoin(
-        'bookshelf_comments AS comm',
+        'bookshelf_bookrating AS rat',
         'book.id',
-        'comm.book_id'
+        'rat.book_id'
       )
       .leftJoin(
         'bookshelf_users AS usr',
@@ -93,22 +91,22 @@ const BooksService = {
       .first();
   },
 
-  getBookComments(db, book_id) {
-    return db('bookshelf_comments AS comm')
+  getBookRatings(db, book_id) {
+    return db('bookshelf_bookrating AS rat')
       .select(
-        'comm.id',
-        'comm.rating',
-        'comm.text',
-        'comm.date_created',
+        'rat.id',
+        'rat.poster_id',
+        'rat.rating',
+        'rat.date_created',
         ...userFields
       )
-      .where('comm.book_id', book_id)
+      .where('rat.book_id', book_id)
       .leftJoin(
         'bookshelf_users AS usr',
-        'comm.poster_id',
+        'rat.poster_id',
         'usr.id'
       )
-      .groupBy('comm.id', 'usr.id');
+      .groupBy('rat.poster_id', 'usr.id','rat.id','rat.rating','rat.date_created');
   },
   insertBook(db, newBook) {
     return db('bookshelf_books')
@@ -146,36 +144,33 @@ const BooksService = {
       image: xss(bookdata.image),
       book_report: xss(bookdata.book_report),
       rating: bookdata.rating,
-      likes: bookdata.likes,
-      dislikes: bookdata.dislikes,
+      genre: bookdata.genre,
       recommended: bookdata.recommended,
       user: bookdata.user || {},
       poster: { 
         ...bookdata.poster, 
         poster_report: report
       } || {},
-      number_of_comments: Number(bookdata.number_of_comments) || 0,
-      average_review_rating: Number(bookdata.average_review_rating) || 0
+      number_of_ratings: Number(bookdata.number_of_ratings) || 0,
+      average_rating: Number(bookdata.average_rating) || 0
     };
   },
-
-  serilaizeBookComments(comments) {
-    return comments.map(this.serializeBookComment);
+  serializeRatings(ratings) {
+    return ratings.map(this.serializeRating)
   },
 
-  serializeBookComment(comment) {
-    const commentTree = new Treeize();
-
-    const commentData = commentTree.grow([ comment ]).getData()[0];
+  serializeRating(rating) {
+    const ratingTree = new Treeize()
+    const ratingData = ratingTree.grow([ rating ]).getData()[0]
 
     return {
-      id: commentData.id,
-      rating: commentData.rating,
-      text: commentData.text,
-      date_created: commentData.date_created,
-      user: commentData.user || {}
-    };
-  }
+      id: ratingData.id,
+      rating: ratingData.rating,
+      book_id: ratingData.book_id,
+      user: ratingData.user || {},
+      date_created: ratingData.date_created,
+    }
+  },
 };
 const posterFields = [
   'ptr.id AS poster:id',
@@ -183,8 +178,7 @@ const posterFields = [
   'ptr.full_name AS poster:full_name',
   'ptr.email AS poster:email',
   'ptr.date_created AS poster:date_created',  
-  'book.poster_rating AS poster:poster_rating',
-  'book.poster_report AS poster:poster_report'
+  'book.poster_rating AS poster:poster_rating'
 ];
 
 const userFields = [

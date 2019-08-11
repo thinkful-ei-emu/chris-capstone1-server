@@ -1,7 +1,7 @@
 BEGIN;
 
 TRUNCATE
-  bookshelf_bookrating,
+  bookshelf_comments,
   bookshelf_books,
   bookshelf_users
   RESTART IDENTITY CASCADE;
@@ -46,45 +46,131 @@ VALUES
   ('The National Team: The Inside Story of the Women Who Changed Soccer', 'Caitlin Murray', 'reading', 'Website', 'https://media.vanityfair.com/photos/5d1662c65f741a0008ed05dd/master/w_800%2Cc_limit/best-books-2019-The-National-Team.jpg', 65, 5, 0, true, 94, 'Best in my lifetime!!', 5, 6, 'Fairytale'),
   ('The New Me', 'Halle Butler', 'wishlist', 'Audiobook', '', 82, 33, 36, false, null, null, null, 4, 'Fairytale');
 
-INSERT INTO bookshelf_bookrating (rating, book_id, poster_id) VALUES
-(82, 1, 1),
-(82, 1, 2),
-(95, 1, 3),
-(45, 1, 5),
-(45, 1, 6),
-(45, 2, 2),
-(50, 2, 6),
-(50, 3, 4),
-(50, 4, 2),
-(55, 5, 2),
-(95, 3, 1),
-(95, 4, 5),
-(95, 5, 3),
-(95, 6, 5),
-(95, 7, 6),
-(55, 2, 5),
-(55, 2, 4),
-(60, 3, 2),
-(60, 4, 1),
-(90, 8, 1),
-(90, 9, 2),
-(90, 10, 3),
-(90, 11, 5),
-(90, 12, 6),
-(85, 13, 1),
-(85, 14, 2),
-(85, 15, 3),
-(85, 16, 5),
-(97, 17, 6),
-(97, 18, 1),
-(60, 10, 2),
-(60, 11, 4),
-(70, 12, 5),
-(70, 13, 2),
-(70, 14, 1),
-(40, 15, 2),
-(40, 16, 4),
-(40, 17, 5);
-  
+INSERT INTO bookshelf_comments (
+  text,
+  rating,
+  book_id,
+  poster_id
+) VALUES
+  (
+    'This thing is amazing.',
+    4,
+    1,
+    2
+  ),
+  (
+    'Put a bird on it!',
+    4,
+    1,
+    3
+  ),
+  (
+    'All the other reviewers are obviously insane, but this thing is actually pretty amazing.',
+    5,
+    1,
+    4
+  ),
+  (
+    'When life gives you lemons, trade them for this thing.',
+    4,
+    1,
+    5
+  ),
+  (
+    'This cured my psoriasis, but left me unable to tell the difference between the taste of squash and the concept of increasing.',
+    3,
+    2,
+    6
+  ),
+  (
+    'I think I swallowed a bug.',
+    1,
+    2,
+    1
+  ),
+  (
+    'I have not used it or even seen it, and I do not actually know what it is. I do not know why I am writing this review, how I got here, or what my name is. Three stars!',
+    3,
+    2,
+    3
+  ),
+  (
+    'Ew.',
+    1,
+    4,
+    6
+  ),
+  (
+    'I heard about this one time at band camp.',
+    3,
+    4,
+    4
+  ),
+  (
+    'big time many goodness!!!',
+    5,
+    10,
+    3
+  ),
+  (
+    'Iste, architecto obcaecati tenetur quidem voluptatum ipsa quam!',
+    2,
+    10,
+    5
+  ),
+  (
+    'There are some better things. There are also some worse things.',
+    3,
+    7,
+    1
+  ),
+  (
+    'Great holiday present for extraterrestrials (only the kind with the lightbulb heads).',
+    4,
+    7,
+    2
+  ),
+  (
+    'It does not say this on the label, but this thing can be used to summon rain on the spring equinox with the proper incantation.',
+    3,
+    7,
+    3
+  ),
+  (
+    'Do not believe the hype!',
+    1,
+    7,
+    4
+  ),
+  (
+    'I would rather have a shoulder rub.',
+    3,
+    9,
+    6
+  ),
+  (
+    'I heard this has lead in it! Run! RRUUUUUUNNNN!',
+    1,
+    6,
+    5
+  ),
+  (
+    'This would not fit inside the cabin of my horse-and-buggy, but it was a useful bribe after the string cheese incident.',
+    4,
+    6,
+    1
+  ),
+  (
+    'Slightly better than waking up deep in the forests of Madagascar and having no idea how you got there, but not THAT much better.',
+    3,
+    8,
+    2
+  ),
+  (
+    'Octopii give it eight tentacles up!',
+    5,
+    8,
+    4
+  );
 
 COMMIT;

@@ -98,16 +98,16 @@ booksRouter
   });
 
 booksRouter
-  .route('/:book_id/comments/')
+  .route('/:book_id/ratings/')
   .all(requireAuth)
   .all(checkBookExists)
   .get((req, res, next) => {
-    BooksService.getBookComments(
+    BooksService.getBookRatings(
       req.app.get('db'),
       req.params.book_id
     )
-      .then(comments => {
-        res.json(BooksService.serilaizeBookComments(comments));
+      .then(ratings => {
+        res.json(BooksService.serializeRatings(ratings));
       })
       .catch(next);
   });

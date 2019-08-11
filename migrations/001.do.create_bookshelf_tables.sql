@@ -117,7 +117,9 @@ CREATE TABLE bookshelf_books (
         REFERENCES bookshelf_users(id) ON DELETE CASCADE NOT NULL
 );
 
-CREATE TABLE bookshelf_bookrating (
+CREATE TABLE bookshelf_comments (
+  id SERIAL PRIMARY KEY,
+  text TEXT NOT NULL,
   rating INTEGER,
   book_id INTEGER
     REFERENCES bookshelf_books(id) ON DELETE CASCADE NOT NULL,
