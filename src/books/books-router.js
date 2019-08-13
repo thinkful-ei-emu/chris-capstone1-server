@@ -7,6 +7,7 @@ const jsonParser = express.json();
 
 booksRouter
   .route('/')
+  .all(requireAuth)
   .get((req, res, next) => {
     BooksService.getAllBooks(req.app.get('db'))
       .then(books => {

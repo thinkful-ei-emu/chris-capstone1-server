@@ -119,15 +119,68 @@ function makeBooksArray(users) {
   ];
 }
 
-function makeExpectedBook(users, book, comments=[]) {
+function makeRatingsArray(users, books) {
+  return [
+    {
+      id: 1, 
+      rating: 85, 
+      book_id: books[0].id, 
+      poster_id: users[0].id
+    },
+    {
+      id: 2, 
+      rating: 85, 
+      book_id: books[0].id, 
+      poster_id: users[1].id
+    },
+    {
+      id: 3, 
+      rating: 85, 
+      book_id: books[0].id, 
+      poster_id: users[2].id
+    },
+    {
+      id: 4, 
+      rating: 85, 
+      book_id: books[0].id, 
+      poster_id: users[3].id
+    },
+    {
+      id: 5, 
+      rating: 85, 
+      book_id: books[1].id, 
+      poster_id: users[0].id
+    },
+    {
+      id: 6, 
+      rating: 85, 
+      book_id: books[2].id, 
+      poster_id: users[1].id
+    },
+    {
+      id: 7, 
+      rating: 85, 
+      book_id: books[3].id, 
+      poster_id: users[2].id
+    },
+    {
+      id: 8, 
+      rating: 85, 
+      book_id: books[1].id, 
+      poster_id: users[3].id
+    },
+  ];
+}
+
+function makeExpectedBook(users, book, ratings=[]) {
   const user = users
     .find(user => user.id === book.user_id);
 
-  const bookComments = comments
-    .filter(comment => comment.thing_id === book.id);
+  const bookRatings = ratings
+    .filter(rating => rating.book_id === book.id);
   
-  const number_of_comments = bookComments.length;
-  const average_review_rating = calculateAverageCommentRating(bookComments);
+  const number_of_ratings = bookRatings.length;
+  const average_rating = calculateAverageRating(bookRatings);
     
   return {
     id: book.id,
@@ -139,8 +192,7 @@ function makeExpectedBook(users, book, comments=[]) {
     image : book.image,
     book_report : book.book_report,
     rating : book.rating,
-    likes : book.likes,
-    dislikes : book.dislikes,
+    genre: book.genre,
     recommended : book.recommended,
     user : {
       id : user.id,
@@ -152,19 +204,42 @@ function makeExpectedBook(users, book, comments=[]) {
     poster: {
       poster_report: book.poster_report
     },
-    number_of_comments,
-    average_review_rating
+    number_of_ratings,
+    average_rating
   };
 }
 
-function calculateAverageCommentRating(comments) {
-  if(!comments.length) return 0;
+function calculateAverageRating(ratings) {
+  if(!ratings.length) return 0;
 
-  const sum = comments
-    .map(comment => comment.rating)
+  const sum = ratings
+    .map(rating => rating.rating)
     .reduce((a, b) => a + b);
 
-  return Math.round(sum / comments.length);
+  return Math.round(sum / rating.length);
+}
+
+function makeExpectedBookRating(users, bookId, ratings) {
+  const expectedRatings = ratings
+    .filter(rating => rating.book_id === bookId);
+  
+  return expectedRatings.map(rating => {
+    const ratingUser = users.find(user => user.id === rating.poster_id);
+    return {
+      id: rating.id,
+      rating: rating.rating,
+      book_id: rating.book_id,
+      poster_id: rating.poster_id,
+      user: {
+        id: ratingUser.id,
+        user_name: ratingUser.user_name,
+        full_name: ratingUser.full_name,
+        nickname: ratingUser.nickname,
+        date_created: ratingUser.date_created,
+      },
+      date_created: rating.date_created,
+    };
+  });
 }
 
 function makeMaliciousBook(user) {
@@ -198,13 +273,14 @@ function makeMaliciousBook(user) {
   return {
     maliciousBook,
     expectedBook
-  }
+  };
 }
 
 function makeBooksFixtures() {
-  const testUsers = makeUsersArray()
-  const testBooks = makeBooksArray(testUsers)
-  return { testUsers, testBooks }
+  const testUsers = makeUsersArray();
+  const testBooks = makeBooksArray(testUsers);
+  const testRatings = makeRatingsArray(testUsers, testBooks)
+  return { testUsers, testBooks, testRatings };
 }
 
 function cleanTables(db) {
@@ -212,26 +288,26 @@ function cleanTables(db) {
     `TRUNCATE
       bookshelf_books,
       bookshelf_users,
-      bookshelf_comments
+      bookshelf_bookrating
       RESTART IDENTITY CASCADE`
-  )
+  );
 }
 
 function seedUsers(db, users) {
   const preppedUsers = users.map(user => ({
     ...user,
     password: bcrypt.hashSync(user.password, 1)
-  }))
+  }));
   return db.into('bookshelf_users').insert(preppedUsers)
     .then(() =>
       db.raw(
-        `SELECT setval('bookshelf_users_id_seq', ?)`,
+        'SELECT setval(\'bookshelf_users_id_seq\', ?)',
         [users[users.length - 1].id]
       )
-    )
+    );
 }
 
-function seedBooksTables(db, users, books, comments=[]) {
+function seedBooksTables(db, users, books, ratings=[]) {
   return seedUsers(db, users)
     .then(() =>
       db
@@ -239,8 +315,8 @@ function seedBooksTables(db, users, books, comments=[]) {
         .insert(books)
     )
     .then(() =>
-      comments.length && db.into('bookshelf_comments').insert(comments)
-    )
+      ratings.length && db.into('bookshelf_bookrating').insert(ratings)
+    );
 }
 
 function seedMaliciousBook(db, user, book) {
@@ -249,22 +325,24 @@ function seedMaliciousBook(db, user, book) {
       db
         .into('bookshelf_books')
         .insert([book])
-    )
+    );
 }
 
 function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
   const token = jwt.sign({ user_id: user.id }, secret, {
     subject: user.user_name,
     algorithm: 'HS256'
-  })
-  return `Bearer ${token}`
+  });
+  return `Bearer ${token}`;
 }
 
 module.exports = {
   makeUsersArray,
   makeBooksArray,
   makeExpectedBook,
+  makeExpectedBookRating,
   makeMaliciousBook,
+  makeRatingsArray,
   makeBooksFixtures,
   seedBooksTables,
   cleanTables,

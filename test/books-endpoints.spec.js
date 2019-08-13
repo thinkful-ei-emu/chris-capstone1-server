@@ -28,9 +28,11 @@ describe('Books Endpoints', function() {
 
   describe('GET /api/books/', () => {
     context('Given no books', () => {
+      beforeEach(() => helpers.seedUsers(db, testUsers));
       it('responds with 200 and an empty list', () => {
         return supertest(app)
           .get('/api/books')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
           .expect(200, []);
       });
     });
@@ -49,6 +51,7 @@ describe('Books Endpoints', function() {
           ));
         return supertest(app)
           .get('/api/books')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
           .expect(200, expectedBooks);
       });
     });
@@ -71,6 +74,7 @@ describe('Books Endpoints', function() {
       it('removes XSS attack content', () => {
         return supertest(app)
           .get('/api/books')
+          .set('Authorization', helpers.makeAuthHeader(testUser))
           .expect(200)
           .expect(res => {
             expect(res.body[0].title).to.eql(expectedBook.title);
