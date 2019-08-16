@@ -75,26 +75,7 @@ CREATE TYPE book_genre AS ENUM (
   'Travel',
   'True crime'
 );
--- create table bookshelf_bookrating (
---   user_id int not null, 
---   book_id int not null, 
---   rating int not null, 
---   primary key (user_id, book_id))
 
--- CREATE TABLE bookshelf_userbooks (
---   list bookshelf_list NOT NULL,
---   book_source source_type NOT NULL,
---   book_report TEXT,
---   rating integer,
---   likes integer DEFAULT 0,
---   dislikes integer DEFAULT 0,
---   recommended boolean DEFAULT false,
---   poster_rating integer,
---   poster_report text,
---   poster_id INTEGER
---     REFERENCES bookshelf_users(id) ON DELETE CASCADE,
---   date_created TIMESTAMPTZ DEFAULT now() NOT NULL,
--- )
 CREATE TABLE bookshelf_books (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
@@ -105,8 +86,6 @@ CREATE TABLE bookshelf_books (
   book_report TEXT,
   image TEXT,
   rating integer,
-  likes integer DEFAULT 0,
-  dislikes integer DEFAULT 0,
   recommended boolean DEFAULT false,
   poster_rating integer,
   poster_report text,
