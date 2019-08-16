@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const booksRouter = require('./books/books-router');
-const commentRouter = require('./comments/comment-router');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const ratingsRouter = require('./ratings/rating-router');
@@ -22,7 +21,6 @@ app.use(helmet());
 app.use(cors());
 
 app.use('/api/books', booksRouter);
-app.use('/api/comments', commentRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/ratings', ratingsRouter);

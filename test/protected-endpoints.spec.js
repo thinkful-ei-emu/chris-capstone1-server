@@ -9,7 +9,7 @@ describe('Books Endpoints', function() {
   const {
     testUsers,
     TestBooks,
-    TestComments,
+    TestRatings,
   } = helpers.makeBooksFixtures();
   
   before('make knex instance', () => {
@@ -32,7 +32,7 @@ describe('Books Endpoints', function() {
         db,
         testUsers,
         TestBooks,
-        TestComments
+        TestRatings
       )
     );
     
