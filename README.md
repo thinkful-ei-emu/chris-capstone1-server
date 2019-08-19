@@ -1,9 +1,30 @@
 # Mobile Bookshelf API
 
-Mobile Bookshelf is an full-stack application that allows users to compile information on
-all of the books that they are reading across various mediums (print, ebook,
-website, etc) in one database. Along with providing a digital bookshelf, there is also
-a shared space where you can explore what other users are reading and have read.
+This server was built for the Mobile Bookshelf application. Mobile Bookshelf allows users to compile information on all of the books that they are reading across various mediums (print, ebook, website, etc) in one database.
+
+The server currently accepts 4 routes:
+api/auth
+    (POST '/' - creating login credentials)
+api/users/
+    (POST '/' - checking and authenticating login credentials)
+api/books
+    (GET '/' - all books)
+    (GET '/user/books' - user specific books)
+    (POST '/user/books' - user specific book)
+    (GET '/user/books/:id' - specific book)
+    (PATCH '/user/books/:id' - update book)
+    (DELETE '/user/books/:id' - delete book)
+    (GET '/user/books/:book_id/rating - rating for a specific book)
+api/ratings
+    (GET '/' - all ratings on a users books)
+    (POST '/' - add a new rating to a book)
+    (DELETE '/:id' - delete rating)
+
+Functions for each route are stored in the controllers folder in their respective files.
+
+Database communications are in the services' files.
+
+Below is a link to the live client.
 
 ## Live Client: 
 https://chris-mobile-bookshelf-app.now.sh
